@@ -18,6 +18,7 @@ class Dashbord extends StatefulWidget {
 }
 
 class _DashbordState extends State<Dashbord> {
+  
   final googlePlacesKey = "AIzaSyCkKcmYT62_WGyelqflyarQdYpsPSx9_mc";
   String address = "";
   late double latitude, longitude;
@@ -27,26 +28,26 @@ class _DashbordState extends State<Dashbord> {
   int? pincode;
   int? twowheels;
   int? fourwheels;
-  String ownername = '';
+  String ownername='';
   final TextEditingController _address = TextEditingController();
 
-  Future<void> getOwnerName() {
-    return FirebaseFirestore.instance
-        .collection('giveplaceusers')
-        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-        .get()
-        .then((value) {
-      ownername = value['fullName'];
-    });
-  }
 
+  Future<void> getOwnerName(){
+    return FirebaseFirestore.instance
+    .collection('giveplaceusers')
+    .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+    .get().then((value) {
+      ownername = value['fullName'];
+    }) ;
+  }
   CollectionReference users = FirebaseFirestore.instance
       .collection('giveplaceusers')
       .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
       .collection('parkingareas');
 
-  Future calculateCoordinates() async {
-    List<Location> placemark = await locationFromAddress(address);
+   Future calculateCoordinates() async {
+    List<Location> placemark =
+        await locationFromAddress(address);
 
     latitude = placemark[0].latitude;
     longitude = placemark[0].longitude;
@@ -55,92 +56,95 @@ class _DashbordState extends State<Dashbord> {
     );
     print(placemark);
   }
-
-  void addParkingPlaces(String id) async {
-    await FirebaseFirestore.instance.collection('parkingPlaces').doc(id).set({
+  void addParkingPlaces(String id) async{
+    await FirebaseFirestore.instance
+    .collection('parkingPlaces')
+    .doc(id)
+    .set({
       'max2vehicles': twowheels,
       'max4vehicles': fourwheels,
       'mobileNumber': mobilenumber,
       'ownerNmae': ownername,
       'address': address,
     }).then((val) {
-      print("Document successfully written!");
-      addGeopoint(id);
-    }).catchError((error) {
-      print(error);
+        print("Document successfully written!");
+        addGeopoint(id);
+    })
+    .catchError((error){
+        print(error);
     });
   }
-
-  Future<void> addGeopoint(String id) async {
+  Future<void> addGeopoint(String id) async{
     await GeoFirestore(FirebaseFirestore.instance.collection('parkingPlaces'))
-        .setLocation(id, GeoPoint(latitude, longitude))
-        .then((val) {
-      print("Finally Document successfully written!");
-    }).catchError((error) {
-      print(error);
+    .setLocation(
+      id, GeoPoint(latitude, longitude)
+    ).then((val) {
+        print("Finally Document successfully written!");
+    })
+    .catchError((error){
+        print(error);
     });
   }
-
-  Future<void> addplace() async {
+  Future<void> addplace() async{
     await calculateCoordinates();
     // Call the user's CollectionReference to add a new user
     List<bool> arr = new List<bool>.generate(24, (index) => false);
-    return users.add({
-      'max2vehicles': twowheels,
-      'max4vehicles': fourwheels,
-      'mobileNumber': mobilenumber,
-      'address': address,
-      'lattitude': latitude,
-      'longitude': longitude,
-      'pincode': pincode,
-      'state': state,
-      'country': country,
-      'timeSlots': arr,
-    }).then((value) {
-      addParkingPlaces(value.id);
-      Navigator.pop(context);
-    }).catchError((error) => print("Failed to add user: $error"));
+    return users
+        .add({
+          'max2vehicles': twowheels,
+          'max4vehicles': fourwheels,
+          'mobileNumber': mobilenumber,
+          'address': address,
+          'lattitude': latitude,
+          'longitude': longitude,
+          'pincode': pincode,
+          'state': state,
+          'country': country,
+          'timeSlots': arr,
+        })
+        .then((value) {
+          addParkingPlaces(value.id);
+          Navigator.pop(context);
+        })
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
   List<Parkingareas> allparkingareas = [];
   void initState() {
     super.initState();
     Parkingservices()
-        .fetchParkingservices()
-        .then((value) => value.forEach((element) {
-              setState(() {
-                allparkingareas.add(element);
-              });
-            }));
-    getOwnerName();
+      .fetchParkingservices()
+      .then((value) => value.forEach((element) {
+        setState(() {
+          allparkingareas.add(element);
+        });
+      }));
+      getOwnerName();
   }
-
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[100],
         appBar: AppBar(
           backgroundColor: Colors.blue[900],
-          title: Text(
-            'dashboard',
+          title: Text('Dashboard',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.blue,
+              color: Colors.white,
               fontSize: 20,
             ),
           ),
           automaticallyImplyLeading: false,
           actions: [
-            IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => MainPage(),
-                    ),
-                    (route) => false,
-                  );
-                },
-                icon: Icon(Icons.logout)),
+            IconButton(onPressed: (){
+              FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => MainPage(),
+                ),
+                (route) => false,
+              );
+            }, icon: Icon(Icons.logout)),
           ],
         ),
         body: SingleChildScrollView(
@@ -148,6 +152,9 @@ class _DashbordState extends State<Dashbord> {
             Padding(
                 padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue
+                  ),
                     child: Text("Add Place"),
                     onPressed: () {
                       showDialog(
@@ -184,19 +191,19 @@ class _DashbordState extends State<Dashbord> {
                                     ),
                                   ),
                                   Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 0, horizontal: 30),
-                                      child: TextFormField(
-                                        onChanged: (text) {
-                                          address = text;
-                                        },
-                                        validator: (value) {
-                                          if (value == null) {
-                                            return 'Please enter an address';
-                                          }
-                                          return null;
-                                        },
-                                      )
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 30),
+                                    child:TextFormField(
+                                      onChanged: (text) {
+                                        address = text;
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please enter an address';
+                                        }
+                                        return null;
+                                      },
+                                    )
                                       // child:TextFormField(
                                       //   decoration: new InputDecoration(
                                       //     border: InputBorder.none,
@@ -216,8 +223,8 @@ class _DashbordState extends State<Dashbord> {
 
                                       //     displayPrediction(p);
                                       //   },
-                                      // )
-                                      ),
+                                      // )                               
+                                  ),
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(
                                         30.0, 10.0, 30.0, 0.0),
@@ -278,20 +285,21 @@ class _DashbordState extends State<Dashbord> {
                                     ),
                                   ),
                                   Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 0, horizontal: 30),
-                                      child: (TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        onChanged: (text) {
-                                          twowheels = int.parse(text);
-                                        },
-                                        validator: (value) {
-                                          if (value == null) {
-                                            return 'Please enter a number';
-                                          }
-                                          return null;
-                                        },
-                                      ))),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 30),
+                                    child: (TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      onChanged: (text) {
+                                        twowheels = int.parse(text);
+                                      },
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please enter a number';
+                                        }
+                                        return null;
+                                      },
+                                    ))
+                                  ),
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(
                                         30.0, 10.0, 30.0, 0.0),
@@ -389,7 +397,7 @@ class _DashbordState extends State<Dashbord> {
                                           return null;
                                         },
                                       ))),
-                                  Padding(
+                                      Padding(
                                       padding: EdgeInsets.fromLTRB(
                                           30.0, 5.0, 30.0, 40.0),
                                       child: ElevatedButton(
@@ -412,12 +420,11 @@ class _DashbordState extends State<Dashbord> {
                   padding: const EdgeInsets.all(8),
                   itemCount: allparkingareas.length,
                   itemBuilder: (context, index) {
-                    return ParkingCard(
-                      parkingareas: allparkingareas[index],
-                    );
+                    return ParkingCard(parkingareas: allparkingareas[index],);
                   }),
             )
           ]),
         ));
   }
 }
+  

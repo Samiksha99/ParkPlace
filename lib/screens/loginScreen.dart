@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:park_place/screens/otpScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-bool role = false;
-
+bool role=false;
 class LoginScreen extends StatefulWidget {
   static String? phone;
   final bool isowner;
 
-  LoginScreen({Key? key, required this.isowner}) : super(key: key);
+  LoginScreen({ Key? key, required this.isowner}) : super(key: key);
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -23,16 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
   );
 
   @override
-  void initState() {
+  void initState(){
     fetchRole();
     super.initState();
   }
 
-  void fetchRole() async {
+  void fetchRole() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    if (widget.isowner) {
+    if(widget.isowner){
       await pref.setBool('ownerRole', true);
-    } else {
+    }
+    else{
       await pref.setBool('ownerRole', false);
     }
   }
@@ -58,43 +58,58 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey.withOpacity(.2),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 50,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Welcome.",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: Text(
-                      "Enter your phone number to continue...",
+        child: Scaffold(
+          backgroundColor: widget.isowner? Colors.blue[200]: Colors.pink[200],
+          body: SingleChildScrollView(
+          child:Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Welcome.",
                       style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      child: Text(
+                        "Enter your phone number to continue...",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            _formModule(),
-          ],
+              Padding(
+                padding: EdgeInsets.only(top:50.0),
+                child: Center(
+                  child: Container(
+                    height: 200,
+                    width: 200,
+                    child: widget.isowner? Image.asset("assets/images/login2.png") : Image.asset("assets/images/login1.png") ,
+                  ),
+                ),
+              ),
+              _formModule(),
+            ],
+          ),
+          ),
         ),
       ),
     );

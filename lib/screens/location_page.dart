@@ -344,9 +344,12 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          'Aligarh Muslim University, Aligarh, 202002, Uttar Pradesh India',
-                          style: TextStyle(fontSize: 16),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical:8.0),
+                          child: Text(
+                            widget.currLocation.address,
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
                         Row(
                           children: [
@@ -358,9 +361,17 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                             SizedBox(
                               width: 15,
                             ),
-                            Text(
-                              '+91 9876543210',
-                              style: TextStyle(fontSize: 18),
+                            Row(
+                              children: [
+                                Text(
+                                  '+91 ',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  widget.currLocation.mobileNumber.toString(),
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ],
                             ),
                           ],
                         )

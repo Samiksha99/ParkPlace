@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:park_place/models/locations.dart';
@@ -31,6 +30,7 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.pink[50],
       appBar: AppBar(
         backgroundColor: Colors.pink[700],
         title: Text(

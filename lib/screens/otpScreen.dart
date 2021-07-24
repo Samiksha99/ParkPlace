@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:park_place/screens/Home.dart';
 import 'package:park_place/screens/detailsScreen.dart';
-import 'package:park_place/screens/location_page.dart';
 import 'package:park_place/screens/loginScreen.dart';
 import 'package:park_place/screens/parkVehivleHomePage.dart';
 import 'package:park_place/screens/parkvehicleDetailPage.dart';
