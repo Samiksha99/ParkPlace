@@ -1,14 +1,15 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:park_please/screens/otpScreen.dart';
+import 'package:park_place/screens/otpScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-bool role=false;
+bool role = false;
+
 class LoginScreen extends StatefulWidget {
   static String? phone;
   final bool isowner;
 
-  LoginScreen({ Key? key, required this.isowner}) : super(key: key);
+  LoginScreen({Key? key, required this.isowner}) : super(key: key);
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -22,17 +23,16 @@ class _LoginScreenState extends State<LoginScreen> {
   );
 
   @override
-  void initState(){
+  void initState() {
     fetchRole();
     super.initState();
   }
 
-  void fetchRole() async{
+  void fetchRole() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    if(widget.isowner){
+    if (widget.isowner) {
       await pref.setBool('ownerRole', true);
-    }
-    else{
+    } else {
       await pref.setBool('ownerRole', false);
     }
   }

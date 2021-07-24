@@ -48,6 +48,7 @@ dependencies:
   image_picker: ^0.8.2
   flutter_google_places: ^0.3.0
   geo_firestore_flutter: ^0.1.2
+  razorpay_flutter: ^1.2.7
 
 dev_dependencies:
   flutter_test:

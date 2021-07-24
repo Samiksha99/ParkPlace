@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:park_please/screens/Home.dart';
-import 'package:park_please/screens/mainPage.dart';
+import 'package:park_place/screens/Home.dart';
+import 'package:park_place/screens/mainPage.dart';
 
 class DetailsScreen extends StatefulWidget {
   @override
@@ -30,8 +30,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         .update({
       'fullName': name,
-      'aadharNumber':110,
-      'isOwner':true,
+      'aadharNumber': 110,
+      'isOwner': true,
       'profileurl': '',
     });
 
@@ -58,19 +58,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
             child: Text('Details Page for give Place users'),
           ),
           actions: [
-            IconButton(onPressed: (){
-              FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => MainPage(),
-                ),
-                (route) => false,
-              );
-            }, icon: Icon(Icons.logout)),
+            IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => MainPage(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                icon: Icon(Icons.logout)),
           ],
         ),
-        body:Container(
+        body: Container(
           padding: EdgeInsets.fromLTRB(30, 80, 30, 30),
           child: Center(
             child: Column(
@@ -102,8 +104,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
                 Form(
                   key: _formkey,
-                  child: 
-                  Container(
+                  child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white12),
                       borderRadius: BorderRadius.circular(15),

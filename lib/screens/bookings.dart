@@ -2,19 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:park_please/models/parkingareas.dart';
+import 'package:park_place/models/parkingareas.dart';
 
 class Bookings extends StatefulWidget {
-
   final Parkingareas parkingArea;
   const Bookings({Key? key, required this.parkingArea}) : super(key: key);
-
 
   @override
   _BookingsState createState() => _BookingsState();
 }
 
-String id='';
+String id = '';
 
 class _BookingsState extends State<Bookings> {
   CollectionReference users =
@@ -76,59 +74,60 @@ class _BookingsState extends State<Bookings> {
         .doc(id)
         .update({'timeSlots': arr});
 
-        showDialog( 
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text("Updated"),
-            content: Text("You have updated TimeSlots"),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                  Navigator.pop(context);
-                },
-                child: Text("okay"),
-              ),
-            ],
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Updated"),
+        content: Text("You have updated TimeSlots"),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pop(context);
+            },
+            child: Text("okay"),
           ),
-        );
+        ],
+      ),
+    );
   }
 
   var now = new DateTime.now();
-  void getparkingAreaId() async{
+  void getparkingAreaId() async {
     await users
-      .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-      .collection('parkingareas')
-      .get().then((value){
-        value.docs.forEach((element) {
-          if(element['address'] == widget.parkingArea.address){
-            id = element.id;
-            print("First-id $id");
-          }
-        });
+        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .collection('parkingareas')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        if (element['address'] == widget.parkingArea.address) {
+          id = element.id;
+          print("First-id $id");
+        }
       });
+    });
   }
-  
+
   Future<void> getslots() async {
     print("first $arr");
     print("id $id");
     await users
-      .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-      .collection('parkingareas')
-      .doc(id)
-      .get()
-      .then((value) {
-        setState(() {
-          arr = List.from(value['timeSlots']);
-        });
-        twowheels = value['max2vehicles'];
-        fourwheels = value['max4vehicles'];
-        mobilenumber = value['mobileNumber'];
-        address = value['address'];
-        pincode = value['pincode'];
-        state = value['state'];
-        country = value['country'];
+        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .collection('parkingareas')
+        .doc(id)
+        .get()
+        .then((value) {
+      setState(() {
+        arr = List.from(value['timeSlots']);
       });
+      twowheels = value['max2vehicles'];
+      fourwheels = value['max4vehicles'];
+      mobilenumber = value['mobileNumber'];
+      address = value['address'];
+      pincode = value['pincode'];
+      state = value['state'];
+      country = value['country'];
+    });
     print("last $arr");
   }
 
@@ -146,7 +145,7 @@ class _BookingsState extends State<Bookings> {
       'state': state,
       'country': country
     });
-    showDialog( 
+    showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text("Updated"),
@@ -368,7 +367,7 @@ class _BookingsState extends State<Bookings> {
                                   onChanged: (text) {
                                     country = text;
                                   },
-                                  initialValue:country,
+                                  initialValue: country,
                                   validator: (value) {
                                     if (value == null) {
                                       return 'Please enter a country name';
@@ -413,18 +412,17 @@ class _BookingsState extends State<Bookings> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 30),
-                              child: (TextFormField(
-                                key: ValueKey('email'),
-                                validator: (value) {
-                                  if (value == null || !value.contains('@')) {
-                                    return 'Please enter a valid email address';
-                                  }
-                                  return null;
-                                },
-                              ))
-                            ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 30),
+                                child: (TextFormField(
+                                  key: ValueKey('email'),
+                                  validator: (value) {
+                                    if (value == null || !value.contains('@')) {
+                                      return 'Please enter a valid email address';
+                                    }
+                                    return null;
+                                  },
+                                ))),
                             Padding(
                                 padding:
                                     EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 40.0),

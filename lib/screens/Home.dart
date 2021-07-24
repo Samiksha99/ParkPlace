@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:park_please/screens/history.dart';
-import 'package:park_please/screens/profile.dart';
-import 'package:park_please/screens/dashboard.dart';
+import 'package:park_place/screens/history.dart';
+import 'package:park_place/screens/profile.dart';
+import 'package:park_place/screens/dashboard.dart';
 
 class Home extends StatefulWidget {
-  const Home({ Key? key }) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -30,10 +30,10 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.home),
-        onPressed: (){
+        onPressed: () {
           setState(() {
-            currenttab=0;
-            currentScreen=Dashbord();
+            currenttab = 0;
+            currentScreen = Dashbord();
           });
         },
       ),
@@ -49,54 +49,49 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               MaterialButton(
                 minWidth: 40,
-                onPressed: (){
+                onPressed: () {
                   setState(() {
-                  currentScreen = Profile();
-                  currenttab = 1;
+                    currentScreen = Profile();
+                    currenttab = 1;
                   });
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  Icon(
-                    Icons.account_circle,
-                    color:currenttab==01? Colors.blue:Colors.grey,
-                    
-                  ),
-                  Text(
-                    'Profile',
-                    style:TextStyle(
-                      color: currenttab == 1? Colors.blue : Colors.grey[600],
-                    )
-                  )
-                ],
+                    Icon(
+                      Icons.account_circle,
+                      color: currenttab == 01 ? Colors.blue : Colors.grey,
+                    ),
+                    Text('Profile',
+                        style: TextStyle(
+                          color:
+                              currenttab == 1 ? Colors.blue : Colors.grey[600],
+                        ))
+                  ],
                 ),
-                ),
-                MaterialButton(
+              ),
+              MaterialButton(
                 minWidth: 40,
-                onPressed: (){
+                onPressed: () {
                   setState(() {
-                  currentScreen = History();
-                  currenttab = 2;
+                    currentScreen = History();
+                    currenttab = 2;
                   });
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  Icon(
-                    Icons.history,
-                    color:currenttab==2 ? Colors.blue:Colors.grey[600],
-                    
-                  ),
-                  Text(
-                    'History',
-                    style:TextStyle(
-                      color: currenttab == 2? Colors.blue : Colors.grey,
-                    )
-                  )
-                ],
+                    Icon(
+                      Icons.history,
+                      color: currenttab == 2 ? Colors.blue : Colors.grey[600],
+                    ),
+                    Text('History',
+                        style: TextStyle(
+                          color: currenttab == 2 ? Colors.blue : Colors.grey,
+                        ))
+                  ],
                 ),
-                )
+              )
             ],
           ),
         ),

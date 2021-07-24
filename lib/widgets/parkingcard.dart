@@ -1,4 +1,4 @@
-import 'package:park_please/screens/bookings.dart';
+import 'package:park_place/screens/bookings.dart';
 
 import '../models/parkingareas.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,8 @@ class _ParkingCardState extends State<ParkingCard> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Bookings(parkingArea:widget.parkingareas)),
+          MaterialPageRoute(
+              builder: (context) => Bookings(parkingArea: widget.parkingareas)),
         );
       },
       child: Card(
@@ -26,22 +27,17 @@ class _ParkingCardState extends State<ParkingCard> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              title: Text(widget.parkingareas.address),
-              subtitle: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "2 wheelers : ${widget.parkingareas.max2vehicles}"
-                    ),
-                    Text(
-                      "4 wheelers: ${widget.parkingareas.max4vehicles}"
-                    ),
-                  ],
-                ),
-              )
-            ),
+                title: Text(widget.parkingareas.address),
+                subtitle: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("2 wheelers : ${widget.parkingareas.max2vehicles}"),
+                      Text("4 wheelers: ${widget.parkingareas.max4vehicles}"),
+                    ],
+                  ),
+                )),
           ],
         ),
       ),

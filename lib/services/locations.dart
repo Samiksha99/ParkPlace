@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:park_please/models/locations.dart';
+import 'package:park_place/models/locations.dart';
 
 class Locationservices {
   Future<bool> postlocationservices({
@@ -7,7 +7,7 @@ class Locationservices {
     int max2vehicles = 0,
     int max4vehicles = 0,
     int mobileNumber = 0,
-    String ownerNmae ="",
+    String ownerNmae = "",
   }) async {
     Map<String, dynamic> data = {
       'max2vehicles': max2vehicles,

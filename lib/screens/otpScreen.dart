@@ -3,19 +3,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:park_please/screens/Home.dart';
-import 'package:park_please/screens/detailsScreen.dart';
-import 'package:park_please/screens/location_page.dart';
-import 'package:park_please/screens/loginScreen.dart';
-import 'package:park_please/screens/parkVehivleHomePage.dart';
-import 'package:park_please/screens/parkvehicleDetailPage.dart';
+import 'package:park_place/screens/Home.dart';
+import 'package:park_place/screens/detailsScreen.dart';
+import 'package:park_place/screens/location_page.dart';
+import 'package:park_place/screens/loginScreen.dart';
+import 'package:park_place/screens/parkVehivleHomePage.dart';
+import 'package:park_place/screens/parkvehicleDetailPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-bool owner= false;
+bool owner = false;
+
 class OTPScreen extends StatefulWidget {
   final phone = LoginScreen.phone;
 
-  OTPScreen({ Key? key}) : super(key: key);
+  OTPScreen({Key? key}) : super(key: key);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -44,13 +45,14 @@ class _OTPScreenState extends State<OTPScreen> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     owner = (pref.getBool('ownerRole') ?? false);
   }
+
   _phoneVerified() async {
-    if(owner){
+    if (owner) {
       await FirebaseFirestore.instance
-        .collection("giveplaceusers")
-        .doc('+91' + widget.phone!)
-        .get()
-        .then(
+          .collection("giveplaceusers")
+          .doc('+91' + widget.phone!)
+          .get()
+          .then(
         (value) {
           if (value.exists) {
             // Navigator.pushReplacementNamed(context,'/ownerHomePage');
@@ -82,13 +84,12 @@ class _OTPScreenState extends State<OTPScreen> {
           }
         },
       );
-    }
-    else{
+    } else {
       await FirebaseFirestore.instance
-        .collection("parkvehicleusers")
-        .doc('+91' + widget.phone!)
-        .get()
-        .then(
+          .collection("parkvehicleusers")
+          .doc('+91' + widget.phone!)
+          .get()
+          .then(
         (value) {
           if (value.exists) {
             // Navigator.pushReplacementNamed(context,'/location_page');
@@ -121,7 +122,6 @@ class _OTPScreenState extends State<OTPScreen> {
         },
       );
     }
-    
   }
 
   _verifyPhone(phone) async {
