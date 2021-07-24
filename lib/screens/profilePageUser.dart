@@ -29,6 +29,7 @@ class MapScreenState extends State<ProfilePageUser>
   MapScreenState(this.documentId);
   void initState() {
     super.initState();
+    print(documentId);
     FirebaseFirestore.instance
         .collection("parkvehicleusers")
         .doc(documentId)
@@ -36,11 +37,9 @@ class MapScreenState extends State<ProfilePageUser>
         .then((value) {
       // print(value['aadharNumber']);
 
-      oldFullName = value['full_name'];
-      oldMobileNumber = value['mobile_number'];
+      oldFullName = value['fullName'];
+      oldMobileNumber = value['mobileNumber'];
       print(oldFullName);
-
-      print(oldMobileNumber);
       _controller.text = oldFullName.toString();
       _controller1.text = oldMobileNumber.toString();
     });
@@ -290,8 +289,8 @@ class MapScreenState extends State<ProfilePageUser>
                           .collection("parkvehicleusers")
                           .doc(documentId)
                           .update({
-                        "full_name": newFullName,
-                        "mobile_number": newMobileNumber
+                        "fullName": newFullName,
+                        "mobileNumber": newMobileNumber
                       }).then((_) {
                         print("success!");
                       });
