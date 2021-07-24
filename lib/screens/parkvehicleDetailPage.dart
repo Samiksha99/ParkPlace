@@ -31,9 +31,7 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         .update({
       'fullName': name,
-      'profileurl': '',
-    });
-     Navigator.push(
+    Navigator.push(
       context,
       new MaterialPageRoute(
         builder: (context) => ParkVehicleHome(),
@@ -56,19 +54,21 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
             child: Text('User Details'),
           ),
           actions: [
-            IconButton(onPressed: (){
-              FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => MainPage(),
-                ),
-                (route) => false,
-              );
-            }, icon: Icon(Icons.logout)),
+            IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => MainPage(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                icon: Icon(Icons.logout)),
           ],
         ),
-        body:Container(
+        body: Container(
           padding: EdgeInsets.fromLTRB(30, 80, 30, 30),
           child: Center(
             child: Column(
@@ -100,8 +100,7 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
                 ),
                 Form(
                   key: _formkey,
-                  child: 
-                  Container(
+                  child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white12),
                       borderRadius: BorderRadius.circular(15),
