@@ -2,25 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:park_place/screens/history.dart';
 import 'package:park_place/screens/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:park_place/screens/parkVehivleHomePage.dart';
 import 'package:park_place/screens/profilePageUser.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeUser extends StatefulWidget {
+  const HomeUser({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomeUserState createState() => _HomeUserState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeUserState extends State<HomeUser> {
   int currenttab = 0;
   final List<Widget> screen = [
-    Dashbord(),
+    ParkVehicleHome(),
     History(),
     ProfilePageUser(FirebaseAuth.instance.currentUser!.phoneNumber),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = Dashbord();
+  Widget currentScreen = ParkVehicleHome();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _HomeState extends State<Home> {
         onPressed: () {
           setState(() {
             currenttab = 0;
-            currentScreen = Dashbord();
+            currentScreen = ParkVehicleHome();
           });
         },
       ),

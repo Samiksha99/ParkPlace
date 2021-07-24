@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:park_place/screens/mainPage.dart';
+import 'package:park_place/screens/parkVehivleHomePage.dart';
 
 class ParkDetailsScreen extends StatefulWidget {
   @override
@@ -29,10 +30,15 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         .update({
       'fullName': name,
-      'isOwner':false,
+      'isOwner': false,
       'profileurl': '',
     });
-    Navigator.pushReplacementNamed(context, '/location_page');
+    Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (context) => ParkVehicleHome(),
+      ),
+    );
   }
 
   @override
@@ -49,19 +55,21 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
             child: Text('Details Page for Park your vehicle users'),
           ),
           actions: [
-            IconButton(onPressed: (){
-              FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => MainPage(),
-                ),
-                (route) => false,
-              );
-            }, icon: Icon(Icons.logout)),
+            IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => MainPage(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                icon: Icon(Icons.logout)),
           ],
         ),
-        body:Container(
+        body: Container(
           padding: EdgeInsets.fromLTRB(30, 80, 30, 30),
           child: Center(
             child: Column(
@@ -93,8 +101,7 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
                 ),
                 Form(
                   key: _formkey,
-                  child: 
-                  Container(
+                  child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white12),
                       borderRadius: BorderRadius.circular(15),
