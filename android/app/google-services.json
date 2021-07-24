@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "250209649090",
+    "project_id": "parkpleasepro",
+    "storage_bucket": "parkpleasepro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250209649090:android:3f2cf60ea829c8657fd65b",
+        "android_client_info": {
+          "package_name": "com.example.park_place"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250209649090-c0usavhcnm5qb1hctklfpnb9l7pk1fd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTLW3KvxYv6Q8oVkmLIh_BhFzexvvp04w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250209649090-c0usavhcnm5qb1hctklfpnb9l7pk1fd1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
