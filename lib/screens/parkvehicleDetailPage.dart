@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:park_place/screens/location_page.dart';
 import 'package:park_place/screens/mainPage.dart';
 import 'package:park_place/screens/parkVehivleHomePage.dart';
 
@@ -30,13 +29,15 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
         .collection("parkvehicleusers")
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         .update({
-      'fullName': name,
-    Navigator.push(
-      context,
-      new MaterialPageRoute(
-        builder: (context) => ParkVehicleHome(),
-      ),
-    );
+          'fullName': name,
+        });
+
+      Navigator.push(
+        context,
+        new MaterialPageRoute(
+          builder: (context) => ParkVehicleHome(),
+        ),
+      );
   }
 
   @override

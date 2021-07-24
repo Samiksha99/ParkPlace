@@ -30,7 +30,7 @@ class _HomeUserState extends State<HomeUser> {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple[200],
+        backgroundColor: Colors.deepPurple[900],
         child: Icon(Icons.home,),
         onPressed: () {
           setState(() {
@@ -68,7 +68,7 @@ class _HomeUserState extends State<HomeUser> {
                     Text('Profile',
                         style: TextStyle(
                           color:
-                              currenttab == 1 ? Colors.blue : Colors.grey[600],
+                              currenttab == 1 ? Colors.deepPurple[300] : Colors.grey[600],
                         ))
                   ],
                 ),
@@ -86,11 +86,11 @@ class _HomeUserState extends State<HomeUser> {
                   children: [
                     Icon(
                       Icons.history,
-                      color: currenttab == 2 ? Colors.blue : Colors.grey[600],
+                      color: currenttab == 2 ? Colors.deepPurple[200] : Colors.grey[600],
                     ),
                     Text('History',
                         style: TextStyle(
-                          color: currenttab == 2 ? Colors.blue : Colors.grey,
+                          color: currenttab == 2 ? Colors.deepPurple[300] : Colors.grey,
                         ))
                   ],
                 ),

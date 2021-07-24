@@ -137,7 +137,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.pink[800],
+        backgroundColor: Colors.purple[900],
           title: Center(
             child: Text('Park Place'),
           ),
