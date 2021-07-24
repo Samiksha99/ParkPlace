@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:park_place/screens/history.dart';
-import 'package:park_place/screens/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:park_place/screens/parkVehivleHomePage.dart';
 import 'package:park_place/screens/profilePageUser.dart';
@@ -31,7 +30,8 @@ class _HomeUserState extends State<HomeUser> {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.home),
+        backgroundColor: Colors.deepPurple[200],
+        child: Icon(Icons.home,),
         onPressed: () {
           setState(() {
             currenttab = 0;
@@ -63,7 +63,7 @@ class _HomeUserState extends State<HomeUser> {
                   children: [
                     Icon(
                       Icons.account_circle,
-                      color: currenttab == 01 ? Colors.blue : Colors.grey,
+                      color: currenttab == 01 ? Colors.deepPurple[200] : Colors.grey,
                     ),
                     Text('Profile',
                         style: TextStyle(
