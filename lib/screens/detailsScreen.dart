@@ -21,7 +21,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  late String store, name;
+  late String aadharNo, name;
   bool saving = false;
 
   void _saveInfo() async {
@@ -30,8 +30,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         .update({
       'fullName': name,
-      'aadharNumber': 110,
-      'isOwner': true,
+      'aadharNumber': aadharNo,
       'profileurl': '',
     });
 
@@ -52,10 +51,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
         return Future.value(false);
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blue[600],
         appBar: AppBar(
+          backgroundColor: Colors.blue[900],
           title: Center(
-            child: Text('Details Page for give Place users'),
+            child: Text('User Details'),
           ),
           actions: [
             IconButton(
@@ -104,32 +104,66 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
                 Form(
                   key: _formkey,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white12),
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white.withOpacity(.05),
-                    ),
-                    padding: EdgeInsets.fromLTRB(20, 5, 15, 5),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.name,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Name',
-                        hintStyle: TextStyle(
-                          color: Colors.white60.withOpacity(.35),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white12),
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white.withOpacity(.5),
+                        ),
+                        padding: EdgeInsets.fromLTRB(20, 5, 15, 5),
+                        child: TextFormField(
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.name,
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Name',
+                            hintStyle: TextStyle(
+                              color: Colors.black.withOpacity(.35),
+                            ),
+                          ),
+                          validator: (val) {
+                            setState(() {
+                              name = val!;
+                            });
+                          },
                         ),
                       ),
-                      validator: (val) {
-                        setState(() {
-                          name = val!;
-                        });
-                      },
-                    ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical:8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white12),
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white.withOpacity(.5),
+                          ),
+                          padding: EdgeInsets.fromLTRB(20, 5, 15, 5),
+                          child: TextFormField(
+                            textInputAction: TextInputAction.done,
+                            keyboardType: TextInputType.number,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Aadhar No',
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(.35),
+                              ),
+                            ),
+                            validator: (val) {
+                              setState(() {
+                                aadharNo = val!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(

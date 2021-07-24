@@ -200,7 +200,7 @@ class _OTPScreenState extends State<OTPScreen> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.grey.withOpacity(.2),
+        backgroundColor: owner? Colors.blue[200] : Colors.purple[300],
         body: SafeArea(
           child: Container(
             decoration: BoxDecoration(
