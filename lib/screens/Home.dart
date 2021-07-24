@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:park_place/screens/history.dart';
 import 'package:park_place/screens/profile.dart';
 import 'package:park_place/screens/dashboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:park_place/screens/profilePageOwner.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class _HomeState extends State<Home> {
   final List<Widget> screen = [
     Dashbord(),
     History(),
-    Profile(),
+    ProfilePageOwner(FirebaseAuth.instance.currentUser!.phoneNumber),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -51,7 +53,8 @@ class _HomeState extends State<Home> {
                 minWidth: 40,
                 onPressed: () {
                   setState(() {
-                    currentScreen = Profile();
+                    currentScreen = ProfilePageOwner(
+                        FirebaseAuth.instance.currentUser!.phoneNumber);
                     currenttab = 1;
                   });
                 },

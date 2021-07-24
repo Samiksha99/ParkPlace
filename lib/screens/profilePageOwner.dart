@@ -29,7 +29,9 @@ class MapScreenState extends State<ProfilePageOwner>
   String? documentId;
 
   MapScreenState(this.documentId);
+
   void initState() {
+    print(documentId);
     super.initState();
     FirebaseFirestore.instance
         .collection("giveplaceusers")
