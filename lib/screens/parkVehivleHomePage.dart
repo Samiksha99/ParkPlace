@@ -18,14 +18,17 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
   late GoogleMapController mapController;
   List<Locations> parkingLocations = [];
-  late Position _currentPosition;
-
+  // late Position _currentPosition;
+  static LatLng _initialPosition = LatLng(0, 0);
   _getCurrentLocation() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
-        _currentPosition = position;
+        Position _currentPosition = position;
         print('CURRENT POS: $_currentPosition');
+        _initialPosition =
+            LatLng(_currentPosition.latitude, _currentPosition.longitude);
+        print(_initialPosition);
         mapController.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
@@ -57,17 +60,15 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[100],
+      backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        backgroundColor: Colors.purple[900],
-        title: Center(
-          child: Text(
-            'Find Parking areas',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
+        backgroundColor: Colors.pink[700],
+        title: Text(
+          'Welcome Page',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
           ),
         ),
         automaticallyImplyLeading: false,
@@ -99,10 +100,7 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
               height: 200.0,
               child: GoogleMap(
                 mapType: MapType.hybrid,
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(
-                      _currentPosition.latitude, _currentPosition.longitude),
-                ),
+                initialCameraPosition: CameraPosition(target: _initialPosition),
                 myLocationEnabled: true,
                 myLocationButtonEnabled: true,
                 zoomGesturesEnabled: true,
