@@ -30,15 +30,17 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink[50],
+      backgroundColor: Colors.deepPurple[100],
       appBar: AppBar(
-        backgroundColor: Colors.pink[700],
-        title: Text(
-          'Welcome Page',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
+        backgroundColor: Colors.purple[900],
+        title: Center(
+          child: Text(
+            'Find Parking areas',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
           ),
         ),
         automaticallyImplyLeading: false,

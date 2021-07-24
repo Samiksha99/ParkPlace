@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.grey.withOpacity(.2),
       body: SafeArea(
         child: Scaffold(
-          backgroundColor: widget.isowner? Colors.blue[200]: Colors.pink[200],
+          backgroundColor: widget.isowner? Colors.blue[200]: Colors.purple[300],
           body: SingleChildScrollView(
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
