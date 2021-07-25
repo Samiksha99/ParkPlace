@@ -1,6 +1,6 @@
 # ParkPlace
 
-A parking mobile applicatiom which enables users to park their vehicles as well as rent their location for parking. Clone the project through this link:
+A parking mobile application which enables users to park their vehicles as well as rent their location for parking. Clone the project through this link:
    * For Mobile App:  https://github.com/Samiksha99/ParkPlace
 
 ## Getting Started
