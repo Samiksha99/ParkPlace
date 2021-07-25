@@ -131,6 +131,17 @@ class _MapViewState extends State<MapView> {
     }
   }
 
+  double totalDistance = 0.0;
+
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
+  }
+
   // Method for calculating the distance between two places
   Future<bool> _calculateDistance() async {
     try {
@@ -182,21 +193,16 @@ class _MapViewState extends State<MapView> {
       // Adding the markers to the list
       markers.add(startMarker);
       markers.add(destinationMarker);
-      print(something);
-      print(something);
-      print(something);
-      print(something);
-      print(something);
-      print(something);
-      print(something);
-      print(something);
+
       print(
         'START COORDINATES: ($startLatitude, $startLongitude)',
       );
       print(
         'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
       );
-
+      totalDistance = calculateDistance(startLatitude, startLongitude,
+          destinationLatitude, destinationLongitude);
+      print(totalDistance);
       // Calculating to check that the position relative
       // to the frame, and pan & zoom the camera accordingly.
       double miny = (startLatitude <= destinationLatitude)
@@ -242,12 +248,10 @@ class _MapViewState extends State<MapView> {
       await _createPolylines(startLatitude, startLongitude, destinationLatitude,
           destinationLongitude);
 
-      double totalDistance = 0.0;
-
       // Calculating the total distance by adding the distance
       // between small segments
       for (int i = 0; i < polylineCoordinates.length - 1; i++) {
-        totalDistance += _coordinateDistance(
+        totalDistance += calculateDistance(
           polylineCoordinates[i].latitude,
           polylineCoordinates[i].longitude,
           polylineCoordinates[i + 1].latitude,
@@ -269,14 +273,14 @@ class _MapViewState extends State<MapView> {
 
   // Formula for calculating distance between two coordinates
   // https://stackoverflow.com/a/54138876/11910277
-  double _coordinateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var c = cos;
-    var a = 0.5 -
-        c((lat2 - lat1) * p) / 2 +
-        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a));
-  }
+  // double _coordinateDistance(lat1, lon1, lat2, lon2) {
+  //   var p = 0.017453292519943295;
+  //   var c = cos;
+  //   var a = 0.5 -
+  //       c((lat2 - lat1) * p) / 2 +
+  //       c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+  //   return 12742 * asin(sqrt(a));
+  // }
 
   // Create the polylines for showing the route between two places
   _createPolylines(
@@ -451,16 +455,16 @@ class _MapViewState extends State<MapView> {
                                 });
                               }),
                           SizedBox(height: 10),
-                          // Visibility(
-                          //   visible: _placeDistance == null ? false : true,
-                          //   child: Text(
-                          //     'DISTANCE: $_placeDistance km',
-                          //     style: TextStyle(
-                          //       fontSize: 16,
-                          //       fontWeight: FontWeight.bold,
-                          //     ),
-                          //   ),
-                          // ),
+                          Visibility(
+                            visible: _placeDistance == null ? false : true,
+                            child: Text(
+                              'DISTANCE: $_placeDistance km',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 5),
                           ElevatedButton(
                             onPressed: (_startAddress != '' &&
