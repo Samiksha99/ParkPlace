@@ -84,7 +84,7 @@ class _DashbordState extends State<Dashbord> {
   Future<void> addplace() async {
     await calculateCoordinates();
     // Call the user's CollectionReference to add a new user
-    List<bool> arr = new List<bool>.generate(24, (index) => false);
+    List<String> arr = new List<String>.generate(24, (index) => "false");
     return users.add({
       'max2vehicles': twowheels,
       'max4vehicles': fourwheels,
