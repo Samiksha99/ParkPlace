@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geo_firestore_flutter/geo_firestore_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:park_place/models/locations.dart';
@@ -18,13 +20,17 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
   late GoogleMapController mapController;
   List<Locations> parkingLocations = [];
-  // late Position _currentPosition;
+  List<dynamic> parkLocations = [];
+  late double lat;
+  late double long;
   static LatLng _initialPosition = LatLng(0, 0);
   _getCurrentLocation() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
         Position _currentPosition = position;
+        lat = _currentPosition.latitude;
+        long = _currentPosition.longitude;
         print('CURRENT POS: $_currentPosition');
         _initialPosition =
             LatLng(_currentPosition.latitude, _currentPosition.longitude);
@@ -43,10 +49,23 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
     });
   }
 
+  Future<void> getLocations()async{
+    setState(() async{
+      final List<DocumentSnapshot> documents = await GeoFirestore(FirebaseFirestore.instance
+      .collection('parkingPlaces'))
+      .getAtLocation(GeoPoint(lat, long), 0.001);
+      documents.forEach((document) {
+        setState(() {
+          parkLocations.add(document);
+        });
+        print(document.data);
+      });
+    });
+  }
   @override
   void initState() {
     _getCurrentLocation();
-
+    // getLocations();
     super.initState();
     Locationservices()
         .fetchLocationservices()
@@ -62,7 +81,7 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        backgroundColor: Colors.pink[700],
+        backgroundColor: Colors.deepPurple[900],
         title: Text(
           'Welcome Page',
           textAlign: TextAlign.center,
@@ -110,15 +129,18 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
                 },
               ),
             ),
-            Container(
-              height: 500,
-              child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: parkingLocations.length,
-                  itemBuilder: (context, index) {
-                    return LocationsCard(
-                        parkingLocation: parkingLocations[index]);
-                  }),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical:8.0),
+              child: Container(
+                height: 475,
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: parkingLocations.length,
+                    itemBuilder: (context, index) {
+                      return LocationsCard(
+                          parkingLocation: parkingLocations[index]);
+                    }),
+              ),
             ),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:park_place/screens/Home.dart';
+import 'package:park_place/screens/HomeUser.dart';
 import 'package:park_place/screens/detailsScreen.dart';
 import 'package:park_place/screens/loginScreen.dart';
 import 'package:park_place/screens/parkVehivleHomePage.dart';
@@ -95,7 +96,7 @@ class _OTPScreenState extends State<OTPScreen> {
             Navigator.push(
               context,
               new MaterialPageRoute(
-                builder: (context) => ParkVehicleHome(),
+                builder: (context) => HomeUser(),
               ),
             );
           } else {
