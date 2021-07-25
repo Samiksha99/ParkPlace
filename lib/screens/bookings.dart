@@ -58,7 +58,7 @@ class _BookingsState extends State<Bookings> {
     '10PM-11PM',
     '11PM-12PM'
   ];
-  List<bool> arr = new List<bool>.generate(24, (index) => false);
+  List<String> arr = new List<String>.generate(24, (index) => "false");
 
   @override
   void initState() {
@@ -168,20 +168,23 @@ class _BookingsState extends State<Bookings> {
       selected = !selected;
       if (selected == true) {
         selectedslots.add(val);
-        arr[val] = true;
+        arr[val] = "true";
       }
       if (selected == false && selectedslots.contains(val)) {
         selectedslots.remove(val);
-        arr[val] = false;
+        arr[val] = "false";
       }
     });
   }
 
   colorselect(val) {
-    if (arr[val] == true) {
-      return true;
+    if (arr[val] == "true" ) {
+      return "true";
     }
-    return false;
+    else if(arr[val] == "selected"){
+      return "selected";
+    }
+    return "false";
   }
 
   @override
@@ -468,9 +471,9 @@ class _BookingsState extends State<Bookings> {
                         color: Colors.black,
                       ),
                     ),
-                    backgroundColor: colorselect(index) == true
+                    backgroundColor: colorselect(index) == "true"
                         ? Colors.blue[800]
-                        : Colors.blue[50],
+                        : colorselect(index) == "selected" ? Colors.green : Colors.blue[50],
                     elevation: 6.0,
                     shadowColor: Colors.grey[60],
                     padding: EdgeInsets.all(8.0),
