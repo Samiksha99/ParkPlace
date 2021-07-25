@@ -88,25 +88,22 @@ class _DashbordState extends State<Dashbord> {
   Future<void> addplace() async{
     await calculateCoordinates();
     // Call the user's CollectionReference to add a new user
-    List<bool> arr = new List<bool>.generate(24, (index) => false);
-    return users
-        .add({
-          'max2vehicles': twowheels,
-          'max4vehicles': fourwheels,
-          'mobileNumber': mobilenumber,
-          'address': address,
-          'lattitude': latitude,
-          'longitude': longitude,
-          'pincode': pincode,
-          'state': state,
-          'country': country,
-          'timeSlots': arr,
-        })
-        .then((value) {
-          addParkingPlaces(value.id);
-          Navigator.pop(context);
-        })
-        .catchError((error) => print("Failed to add user: $error"));
+    List<String> arr = new List<String>.generate(24, (index) => "false");
+    return users.add({
+      'max2vehicles': twowheels,
+      'max4vehicles': fourwheels,
+      'mobileNumber': mobilenumber,
+      'address': address,
+      'lattitude': latitude,
+      'longitude': longitude,
+      'pincode': pincode,
+      'state': state,
+      'country': country,
+      'timeSlots': arr,
+    }).then((value) {
+      addParkingPlaces(value.id);
+      Navigator.pop(context);
+    }).catchError((error) => print("Failed to add user: $error"));
   }
 
   List<Parkingareas> allparkingareas = [];
