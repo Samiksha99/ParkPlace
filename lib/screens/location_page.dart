@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:park_place/screens/slots.dart';
+import 'package:park_place/screens/tezosPay.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -156,279 +157,307 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                 icon: Icon(Icons.logout)),
           ],
         ),
-        body: Column(
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: true,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
-                onPageChanged: (index, reason) {
-                  setState(
-                    () {
-                      _currentIndex = index;
-                    },
-                  );
-                },
-              ),
-              items: imagesList
-                  .map(
-                    (item) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        margin: EdgeInsets.only(
-                          top: 10.0,
-                          bottom: 0.0,
-                        ),
-                        elevation: 6.0,
-                        shadowColor: Colors.redAccent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30.0),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                  onPageChanged: (index, reason) {
+                    setState(
+                      () {
+                        _currentIndex = index;
+                      },
+                    );
+                  },
+                ),
+                items: imagesList
+                    .map(
+                      (item) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          margin: EdgeInsets.only(
+                            top: 10.0,
+                            bottom: 0.0,
                           ),
-                          child: Stack(
-                            children: [
-                              Image.network(
-                                item,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            ],
+                          elevation: 6.0,
+                          shadowColor: Colors.redAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imagesList.map((urlOfItem) {
-                int index = imagesList.indexOf(urlOfItem);
-                return Container(
-                  width: 10.0,
-                  height: 10.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentIndex == index
-                        ? Color.fromRGBO(0, 0, 0, 0.8)
-                        : Color.fromRGBO(0, 0, 0, 0.3),
-                  ),
-                );
-              }).toList(),
-            ),
-            Container(
-              // height: double.infinity,
-              color: Colors.blueGrey[50],
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                      child: Center(
-                        child: Text(
-                          widget.currLocation.address,
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.teal),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 100,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25.0),
-                          child: Text(
-                            'Owner\'s Name:',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30.0),
+                            ),
+                            child: Stack(
+                              children: [
+                                Image.network(
+                                  item,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Text(
-                          widget.currLocation.ownerNmae,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.indigo,
-                          ),
-                        ),
-                        Container(
-                          width: 1,
-                          height: 30,
-                          color: Colors.grey,
-                        ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '\u{20B9}${50}',
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'Rent per Hour',
-                                style: TextStyle(
-                                  color: Colors.purple,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
+                    )
+                    .toList(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imagesList.map((urlOfItem) {
+                  int index = imagesList.indexOf(urlOfItem);
+                  return Container(
+                    width: 10.0,
+                    height: 10.0,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentIndex == index
+                          ? Color.fromRGBO(0, 0, 0, 0.8)
+                          : Color.fromRGBO(0, 0, 0, 0.3),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Description',
+                  );
+                }).toList(),
+              ),
+              Container(
+                // height: double.infinity,
+                color: Colors.blueGrey[50],
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                        child: Center(
+                          child: Text(
+                            widget.currLocation.address,
                             style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.amber),
+                                color: Colors.teal),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 100,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 25.0),
+                            child: Text(
+                              'Owner\'s Name:',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            widget.currLocation.ownerNmae,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.indigo,
+                            ),
                           ),
                           Container(
-                            child: RaisedButton.icon(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        MapView(widget.currLocation.address)));
-                              },
-                              color: Colors.green,
-                              icon: Icon(
-                                Icons.directions,
-                                color: Colors.white,
-                              ),
-                              label: Text(
-                                'Directions',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                            width: 1,
+                            height: 30,
+                            color: Colors.grey,
+                          ),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '\u{20B9}${50}',
+                                  style: TextStyle(
+                                      fontSize: 25, fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'Rent per Hour',
+                                  style: TextStyle(
+                                    color: Colors.purple,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 6),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          'Address',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 22,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical:8.0),
-                          child: Text(
-                            widget.currLocation.address,
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        Row(
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Mobile Number: ',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                            SizedBox(
-                              width: 15,
+                            Text(
+                              'Description',
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber),
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  '+91 ',
-                                  style: TextStyle(fontSize: 18),
+                            Container(
+                              child: RaisedButton.icon(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          MapView(widget.currLocation.address)));
+                                },
+                                color: Colors.green,
+                                icon: Icon(
+                                  Icons.directions,
+                                  color: Colors.white,
                                 ),
-                                Text(
-                                  widget.currLocation.mobileNumber.toString(),
-                                  style: TextStyle(fontSize: 18),
+                                label: Text(
+                                  'Directions',
+                                  style: TextStyle(color: Colors.white),
                                 ),
-                              ],
+                              ),
                             ),
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      child: RaisedButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                        onPressed: () {
-                          getPayment("150");
-                        },
-                        child: Text(
-                          'Pay And Park',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        color: Colors.redAccent,
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      child: RaisedButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => Slots(),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 6),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'Address',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 22,
                             ),
-                          );
-                        },
-                        child: Text(
-                          'Slots',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        color: Colors.redAccent,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical:8.0),
+                            child: Text(
+                              widget.currLocation.address,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text('Mobile Number: ',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  )),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    '+91 ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Text(
+                                    widget.currLocation.mobileNumber.toString(),
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        child: RaisedButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                          onPressed: () {
+                            getPayment("150");
+                          },
+                          child: Text(
+                            'Pay And Park',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        child: RaisedButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (context) => Slots(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'View Slots',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Colors.deepPurple[400],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        child: RaisedButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (context) => TezosPayPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Pay using Tezos Wallet',
+                            style: TextStyle(fontSize: 20, color: Colors.black),
+                          ),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Colors.purple[200],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

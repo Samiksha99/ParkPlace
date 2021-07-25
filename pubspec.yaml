@@ -49,6 +49,7 @@ dependencies:
   flutter_google_places: ^0.3.0
   geo_firestore_flutter: ^0.1.2
   razorpay_flutter: ^1.2.7
+  tezster_dart: ^1.0.0
 
 dev_dependencies:
   flutter_test:
