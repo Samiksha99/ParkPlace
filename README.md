@@ -16,6 +16,7 @@ Download or clone this repo by using the link below:
 ```
 https://github.com/Samiksha99/ParkPlace.git
 ```
+
 **Step 2:**
 
 Go to project root and execute the following command in console to get the required dependencies: 
@@ -41,4 +42,13 @@ After it run this command:
   - cloud_firestore
   - Tezster_dart
   - flutter_google_places
+  
+  
+  ![Add Place](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img1.jpeg)
+  
+  ![Google Maps Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img2.jpeg)
+  
+  ![Login Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img3.jpeg)
+  
+  ![Booking Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img4.jpeg)
   
