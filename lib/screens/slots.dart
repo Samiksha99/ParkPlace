@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,14 +51,16 @@ List allSlots = [
 ];
 
 class _SlotsState extends State<Slots> {
-  Future<void> getslots() async {
+  String ownername = '';
+  String vehicleNumber = '';
+  void getslots() async {
     availableSlotsList = [];
     await users
         // .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         // .collection('parkingareas')
-        .doc('gHTxVxoPjFwLYTXUDetO')
+        .doc('yikvwlSZa0PDgp32KKYc')
         .get()
-        .then((value) {
+        .then((value) async {
       arr = List.from(value['timeSlots']);
       for (var i = 0; i < arr.length; i++) {
         if (arr[i] == "true") {
@@ -69,12 +70,55 @@ class _SlotsState extends State<Slots> {
           // print("fdfs");
         }
       }
+      // selectedslotstrue = [];
+      await FirebaseFirestore.instance
+          .collection('giveplaceusers')
+          .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+          .collection('bookings')
+          .doc('kmQxTo74JbFM8838f8GH')
+          .get()
+          .then((value) {
+        if (value['isdispatech'] == false) {
+          selectedslotstrue = value['timing'];
+          vehicleNumber = value['vehicleNumber'];
+        } else {
+          selectedslotstrue = [];
+        }
+        print(vehicleNumber);
+      });
     });
-    len = availableSlotsList.length;
-    print("available $availableSlotsList");
-    // print(availableSlotsList.length);
-    print("array $arr");
   }
+
+  Future<void> getOwnerName() {
+    return FirebaseFirestore.instance
+        .collection('giveplaceusers')
+        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .get()
+        .then((value) {
+      ownername = value['fullName'];
+    });
+  }
+
+  // Future<void> getinfoselectedslots() async {
+  //   selectedslotstrue = [];
+  //   return FirebaseFirestore.instance
+  //       .collection('giveplaceusers')
+  //       .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+  //       .collection('bookings')
+  //       .doc('kmQxTo74JbFM8838f8GH')
+  //       .get()
+  //       .then((value) {
+  //     if (value['isdispatch'] == false) {
+  //       selectedslotstrue = List.from(value['timing']);
+  //     }
+  //   });
+  // }
+
+  // len = availableSlotsList.length;
+  // print("available $availableSlotsList");
+  // // print(availableSlotsList.length);
+  // print("array $arr");
+  // }
 
   List selectedslotstrue = [];
   void slotsselection(val) {
@@ -86,8 +130,7 @@ class _SlotsState extends State<Slots> {
         selectedslotstrue.add(val);
         selected = false;
         // arr[val] = "true";
-      }
-      else if (selectedslotstrue.contains(val)) {
+      } else if (selectedslotstrue.contains(val)) {
         selectedslotstrue.remove(val);
         selected = false;
         // arr[val] = "false";
@@ -97,38 +140,83 @@ class _SlotsState extends State<Slots> {
     print('sl $selectedslotstrue');
   }
 
-   void savechanges() async {
-
-    for(var i = 0;i<selectedslotstrue.length;i++){
-        // ignore: unnecessary_statements
-        int ind = availableSlotsList[selectedslotstrue[i]];
-        // arr[availableSlotsList[selectedslotstrue[i]] = "selected" as int;
-        arr[ind] = "selected";
+  void savechanges() async {
+    for (var i = 0; i < selectedslotstrue.length; i++) {
+      // ignore: unnecessary_statements
+      int ind = availableSlotsList[selectedslotstrue[i]];
+      // arr[availableSlotsList[selectedslotstrue[i]] = "selected" as int;
+      arr[ind] = "selected";
     }
-    await users
+    await users.doc('yikvwlSZa0PDgp32KKYc').update({'timeSlots': arr});
+    await FirebaseFirestore.instance
+        .collection('giveplaceusers')
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-        .collection('parkingareas')
-        .doc('gHTxVxoPjFwLYTXUDetO')
-        .update({'timeSlots': arr});
+        .collection('bookings')
+        .add({
+      'owner': ownername,
+      'vehicleowner': ownername,
+      'isparked': true,
+      'isdispatech': false,
+      'ismoneytransfered': true,
+      'vehicleNumber': vehicleNumber,
+      'timing': selectedslotstrue,
+      'placeid': 'yikvwlSZa0PDgp32KKYc'
+    });
 
-        showDialog( 
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text("Updated"),
-            content: Text("You have selected TimeSlots"),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                  Navigator.pop(context);
-                },
-                child: Text("okay"),
-              ),
-            ],
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Updated"),
+        content: Text("You have selected TimeSlots"),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pop(context);
+            },
+            child: Text("okay"),
           ),
-        );
+        ],
+      ),
+    );
   }
-  
+
+  void dispatchvehicle() async {
+    for (var i = 0; i < selectedslotstrue.length; i++) {
+      // ignore: unnecessary_statements
+      int ind = availableSlotsList[selectedslotstrue[i]];
+      // arr[availableSlotsList[selectedslotstrue[i]] = "selected" as int;
+      arr[ind] = "true";
+    }
+    print("gjhgjghgjhgjhghj $arr");
+    await users.doc('yikvwlSZa0PDgp32KKYc').update({'timeSlots': arr});
+    await FirebaseFirestore.instance
+        .collection('giveplaceusers')
+        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .collection('bookings')
+        .doc('kmQxTo74JbFM8838f8GH')
+        .update({
+      'isdispatech': true,
+    });
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Updated"),
+        content:
+            Text("Yor are picking your vehicle.Hope You like our service."),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pop(context);
+            },
+            child: Text("okay"),
+          ),
+        ],
+      ),
+    );
+  }
+
   colorselect(val) {
     // print("vjjgj $val");
     if (selectedslotstrue.contains(val)) {
@@ -140,9 +228,6 @@ class _SlotsState extends State<Slots> {
   @override
   void initState() {
     getslots();
-    selectedslots = [];
-    // getparkingAreaId();
-    // availableSlots();
     super.initState();
   }
 
@@ -214,11 +299,37 @@ class _SlotsState extends State<Slots> {
                       );
                     }),
               ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                child: TextFormField(
+                  initialValue: vehicleNumber,
+                  decoration: new InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                          left: 15, bottom: 11, top: 11, right: 15),
+                      hintText: vehicleNumber == ""
+                          ? "Vehicle Number"
+                          : vehicleNumber),
+                  onChanged: (text) {
+                    vehicleNumber = text;
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please enter an valid number';
+                    }
+                    return null;
+                  },
+                ),
+              ),
               ElevatedButton(
                   onPressed: () {
                     savechanges();
                   },
-                  child: Text("Save Changes"))
+                  child: Text("Parked")),
+              ElevatedButton(
+                  onPressed: () {
+                    dispatchvehicle();
+                  },
+                  child: Text("Dispatch")),
             ])));
   }
 }
