@@ -8,6 +8,7 @@ import 'package:park_place/Location/google_maps.dart';
 import 'package:park_place/models/locations.dart';
 import 'package:park_place/screens/mainPage.dart';
 import 'package:park_place/screens/slots.dart';
+import 'package:park_place/screens/ether.dart';
 
 final themeMode = ValueNotifier(2);
 
@@ -31,10 +32,10 @@ final themeMode = ValueNotifier(2);
 // }
 
 class PrefetchImageDemo extends StatefulWidget {
-
   final Locations currLocation;
 
-  const PrefetchImageDemo({ Key? key, required this.currLocation }) : super(key: key);
+  const PrefetchImageDemo({Key? key, required this.currLocation})
+      : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _PrefetchImageDemoState();
@@ -121,6 +122,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
       });
     }
   }
+
   Future<void> _show2() async {
     final TimeOfDay? result =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -137,7 +139,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-        backgroundColor: Colors.purple[900],
+          backgroundColor: Colors.purple[900],
           title: Center(
             child: Text('Park Place'),
           ),
@@ -345,7 +347,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                           height: 10,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical:8.0),
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
                             widget.currLocation.address,
                             style: TextStyle(fontSize: 16),
@@ -385,7 +387,12 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                         padding:
                             EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                         onPressed: () {
-                          getPayment("150");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => Ether(),
+                            ),
+                          );
                         },
                         child: Text(
                           'Pay And Park',
@@ -401,29 +408,51 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      child: RaisedButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => Slots(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          'Slots',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      Container(
+                        child: RaisedButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                          onPressed: () {
+                            getPayment("150");
+                          },
+                          child: Text(
+                            'Slots',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Colors.redAccent,
                         ),
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        color: Colors.redAccent,
                       ),
-                    ),
+                      Container(
+                        child: RaisedButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (context) => Slots(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Pay Ether',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                    ]),
                   ),
                 ],
               ),
