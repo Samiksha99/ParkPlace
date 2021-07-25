@@ -24,11 +24,7 @@ List<String> arr = new List<String>.generate(24, (index) => "false");
 int len = 0;
 bool selected = false;
 List selectedslots = [];
-CollectionReference users = FirebaseFirestore.instance
-    .collection('giveplaceusers')
-    .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-    .collection('parkingareas');
-
+String bookId='';
 List allSlots = [
   '12AM-1AM',
   '1AM-2AM',
@@ -57,6 +53,11 @@ List allSlots = [
 ];
 
 class _SlotsState extends State<Slots> {
+
+  // CollectionReference users = FirebaseFirestore.instance
+  //   .collection('giveplaceusers')
+  //   .doc(widget.currlocation.ownerId)
+  //   .collection('parkingareas');
   String ownername = '';
   String vehicleNumber = '';
   String todatDate= DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -90,9 +91,9 @@ class _SlotsState extends State<Slots> {
       // selectedslotstrue = [];
       await FirebaseFirestore.instance
           .collection('giveplaceusers')
-          .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+          .doc(widget.currlocation.ownerId)
           .collection('bookings')
-          .doc('kmQxTo74JbFM8838f8GH')
+          .doc(widget.currlocation.id)
           .get()
           .then((value) {
         if (value['isdispatech'] == false) {
@@ -109,7 +110,7 @@ class _SlotsState extends State<Slots> {
   Future<void> getOwnerName() {
     return FirebaseFirestore.instance
         .collection('giveplaceusers')
-        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .doc(widget.currlocation.ownerId)
         .get()
         .then((value) {
       ownername = value['fullName'];
@@ -164,21 +165,24 @@ class _SlotsState extends State<Slots> {
       // arr[availableSlotsList[selectedslotstrue[i]] = "selected" as int;
       arr[ind] = "selected";
     }
-    await users.doc('cjVkoioeWRR5shGhX8Ff').update({'timeSlots': arr});
+    await FirebaseFirestore.instance
+    .collection('giveplaceusers')
+    .doc(widget.currlocation.ownerId)
+    .collection('parkingareas').doc(widget.currlocation.id).update({'timeSlots': arr});
     await FirebaseFirestore.instance
         .collection('giveplaceusers')
-        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .doc(widget.currlocation.ownerId)
         .collection('bookings')
         .add({
-      'owner': ownername,
-      'vehicleowner': ownername,
-      'isparked': true,
-      'isdispatech': false,
-      'ismoneytransfered': true,
-      'vehicleNumber': vehicleNumber,
-      'timing': selectedslotstrue,
-      'placeid': 'yikvwlSZa0PDgp32KKYc'
-    });
+        'owner': ownername,
+        'vehicleowner': ownername,
+        'isparked': true,
+        'isdispatech': false,
+        'ismoneytransfered': true,
+        'vehicleNumber': vehicleNumber,
+        'timing': selectedslotstrue,
+        'placeid': widget.currlocation.id,
+      }).then((value) => bookId= value.id);
 
     showDialog(
       context: context,
@@ -206,12 +210,15 @@ class _SlotsState extends State<Slots> {
       arr[ind] = "true";
     }
     print("gjhgjghgjhgjhghj $arr");
-    await users.doc('yikvwlSZa0PDgp32KKYc').update({'timeSlots': arr});
+    await FirebaseFirestore.instance
+    .collection('giveplaceusers')
+    .doc(widget.currlocation.ownerId)
+    .collection('parkingareas').doc(widget.currlocation.id).update({'timeSlots': arr});
     await FirebaseFirestore.instance
         .collection('giveplaceusers')
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         .collection('bookings')
-        .doc('kmQxTo74JbFM8838f8GH')
+        .doc(bookId)
         .update({
       'isdispatech': true,
     });

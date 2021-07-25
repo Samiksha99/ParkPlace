@@ -29,6 +29,7 @@ class _DashbordState extends State<Dashbord> {
   int? twowheels;
   int? fourwheels;
   String ownername='';
+  String ownerid='';
   final TextEditingController _address = TextEditingController();
 
 
@@ -38,6 +39,7 @@ class _DashbordState extends State<Dashbord> {
     .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
     .get().then((value) {
       ownername = value['fullName'];
+      ownerid = FirebaseAuth.instance.currentUser!.phoneNumber.toString();
     }) ;
   }
   CollectionReference users = FirebaseFirestore.instance
@@ -68,6 +70,8 @@ class _DashbordState extends State<Dashbord> {
       'ownerNmae': ownername,
       'address': address,
       'timeSlots': arr,
+      'id': id,
+      'ownerId': ownerid,
     }).then((val) {
         print("Document successfully written!");
         addGeopoint(id);

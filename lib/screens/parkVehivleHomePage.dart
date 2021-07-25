@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geo_firestore_flutter/geo_firestore_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:park_place/models/locations.dart';
@@ -20,7 +18,6 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
   late GoogleMapController mapController;
   List<Locations> parkingLocations = [];
-  List<dynamic> parkLocations = [];
   late double lat;
   late double long;
   static LatLng _initialPosition = LatLng(0, 0);
@@ -49,22 +46,22 @@ class _ParkVehicleHomeState extends State<ParkVehicleHome> {
     });
   }
 
-  Future<void> getLocations()async{
-    setState(() async{
-      final List<DocumentSnapshot> documents = await GeoFirestore(FirebaseFirestore.instance
-      .collection('parkingPlaces'))
-      .getAtLocation(GeoPoint(lat, long), 0.001);
-      documents.forEach((document) {
-        setState(() {
-          parkLocations.add(document);
-        });
-        print(document.data);
-      });
-    });
-  }
+  // Future<void> getLocations()async{
+  //   setState(() async{
+  //     final List<DocumentSnapshot> documents = await GeoFirestore(FirebaseFirestore.instance
+  //     .collection('parkingPlaces'))
+  //     .getAtLocation(GeoPoint(lat, long), 0.001);
+  //     documents.forEach((document) {
+  //       setState(() {
+  //         parkLocations.add(document);
+  //       });
+  //       print(document.data);
+  //     });
+  //   });
+  // }
   @override
   void initState() {
-    _getCurrentLocation();
+    // _getCurrentLocation();
     // getLocations();
     super.initState();
     Locationservices()
