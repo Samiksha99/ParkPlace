@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:park_place/screens/loginScreen.dart';
 import 'package:park_place/utilities/dimensions.dart';
 
-var vpH, vpW, owner=false;
+var vpH, vpW, owner = false;
+
 class MainPage extends StatelessWidget {
-  MainPage({ Key? key }) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,15 @@ class MainPage extends StatelessWidget {
     vpW = getViewportWidth(context);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.blueGrey[300],
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text("ParkPlace", style: TextStyle(color: Colors.white, fontSize: 50),),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RaisedButton.icon(
@@ -25,10 +31,10 @@ class MainPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginScreen(isowner:true)),
+                          builder: (context) => LoginScreen(isowner: true)),
                     );
                   },
-                  color: Colors.blue,
+                  color: Colors.blue[900],
                   icon: Icon(
                     Icons.directions,
                     color: Colors.white,
@@ -37,7 +43,8 @@ class MainPage extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       'Rent your Place',
-                      style: TextStyle(color: Colors.white, fontSize:vpH*0.03 ),
+                      style:
+                          TextStyle(color: Colors.white, fontSize: vpH * 0.03),
                     ),
                   ),
                 ),
@@ -51,7 +58,7 @@ class MainPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginScreen(isowner: false)),
+                          builder: (context) => LoginScreen(isowner: false)),
                     );
                   },
                   color: Colors.pink,
@@ -63,7 +70,8 @@ class MainPage extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       'Park your Vehicle',
-                      style: TextStyle(color: Colors.white, fontSize:vpH*0.03),
+                      style:
+                          TextStyle(color: Colors.white, fontSize: vpH * 0.03),
                     ),
                   ),
                 ),

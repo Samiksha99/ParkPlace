@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'Location/location_page.dart';
 import 'package:park_place/screens/Home.dart';
+import 'package:park_place/screens/HomeUser.dart';
 import 'package:park_place/screens/detailsScreen.dart';
 import 'package:park_place/screens/mainPage.dart';
 import 'package:park_place/screens/parkVehivleHomePage.dart';
@@ -102,7 +103,7 @@ class _MyAppState extends State<MyApp> {
                               return Loading();
                             } else {
                               if (snapShot.hasData) {
-                                return ParkVehicleHome();
+                                return HomeUser();
                                 // }
                               }
                               log('Has no data');

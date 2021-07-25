@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:park_place/screens/mainPage.dart';
+import 'package:park_place/screens/parkVehivleHomePage.dart';
 
 class ParkDetailsScreen extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  late String store, name;
+  late String name;
   bool saving = false;
 
   void _saveInfo() async {
@@ -28,11 +29,15 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
         .collection("parkvehicleusers")
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         .update({
-      'fullName': name,
-      'isOwner': false,
-      'profileurl': '',
-    });
-    Navigator.pushReplacementNamed(context, '/location_page');
+          'fullName': name,
+        });
+
+      Navigator.push(
+        context,
+        new MaterialPageRoute(
+          builder: (context) => ParkVehicleHome(),
+        ),
+      );
   }
 
   @override
@@ -43,10 +48,11 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
         return Future.value(false);
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.deepPurple[100],
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           title: Center(
-            child: Text('Details Page for Park your vehicle users'),
+            child: Text('User Details'),
           ),
           actions: [
             IconButton(
@@ -72,7 +78,7 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
                 Text(
                   "Enter your Details.",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
@@ -84,7 +90,7 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
                   child: Text(
                     "Enter the corresponding details to continue...",
                     style: TextStyle(
-                      color: Colors.white70,
+                      color: Colors.black54,
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
                     ),
@@ -99,20 +105,20 @@ class _ParkDetailsScreenState extends State<ParkDetailsScreen> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white12),
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.white.withOpacity(.05),
+                      color: Colors.white.withOpacity(.5),
                     ),
                     padding: EdgeInsets.fromLTRB(20, 5, 15, 5),
                     child: TextFormField(
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.name,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Name',
                         hintStyle: TextStyle(
-                          color: Colors.white60.withOpacity(.35),
+                          color: Colors.black.withOpacity(.35),
                         ),
                       ),
                       validator: (val) {

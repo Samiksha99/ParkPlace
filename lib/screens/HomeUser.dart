@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:park_place/screens/history.dart';
-import 'package:park_place/screens/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:park_place/screens/parkVehivleHomePage.dart';
 import 'package:park_place/screens/profilePageUser.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeUser extends StatefulWidget {
+  const HomeUser({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomeUserState createState() => _HomeUserState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeUserState extends State<HomeUser> {
   int currenttab = 0;
   final List<Widget> screen = [
-    Dashbord(),
+    ParkVehicleHome(),
     History(),
     ProfilePageUser(FirebaseAuth.instance.currentUser!.phoneNumber),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = Dashbord();
+  Widget currentScreen = ParkVehicleHome();
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,12 @@ class _HomeState extends State<Home> {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.home),
+        backgroundColor: Colors.deepPurple[900],
+        child: Icon(Icons.home,),
         onPressed: () {
           setState(() {
             currenttab = 0;
-            currentScreen = Dashbord();
+            currentScreen = ParkVehicleHome();
           });
         },
       ),
@@ -62,12 +63,12 @@ class _HomeState extends State<Home> {
                   children: [
                     Icon(
                       Icons.account_circle,
-                      color: currenttab == 01 ? Colors.blue : Colors.grey,
+                      color: currenttab == 01 ? Colors.deepPurple[200] : Colors.grey,
                     ),
                     Text('Profile',
                         style: TextStyle(
                           color:
-                              currenttab == 1 ? Colors.blue : Colors.grey[600],
+                              currenttab == 1 ? Colors.deepPurple[300] : Colors.grey[600],
                         ))
                   ],
                 ),
@@ -85,11 +86,11 @@ class _HomeState extends State<Home> {
                   children: [
                     Icon(
                       Icons.history,
-                      color: currenttab == 2 ? Colors.blue : Colors.grey[600],
+                      color: currenttab == 2 ? Colors.deepPurple[200] : Colors.grey[600],
                     ),
                     Text('History',
                         style: TextStyle(
-                          color: currenttab == 2 ? Colors.blue : Colors.grey,
+                          color: currenttab == 2 ? Colors.deepPurple[300] : Colors.grey,
                         ))
                   ],
                 ),
