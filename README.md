@@ -15,7 +15,11 @@ enter their details. We are taking Aadhar Number of the user who wants to rent t
 Download or clone this repo by using the link below:
 ```
 https://github.com/Samiksha99/ParkPlace.git
-```
+```![WhatsApp Image 2021-07-25 at 2 29 54 PM (2)](https://user-images.githubusercontent.com/68808611/126895631-0713963e-db1b-4c0a-a7b8-49c898143647.jpeg)
+![WhatsApp Image 2021-07-25 at 2 29 54 PM (1)](https://user-images.githubusercontent.com/68808611/126895635-6d711dfd-b2b1-4d32-90a0-05e56e49d1aa.jpeg)
+![WhatsApp Image 2021-07-25 at 2 29 54 PM](https://user-images.githubusercontent.com/68808611/126895637-45931bcb-fe27-43e8-a3d6-bf2b262745ea.jpeg)
+![WhatsApp Image 2021-07-25 at 2 30 52 PM](https://user-images.githubusercontent.com/68808611/126895638-66e9b079-c8b7-4928-94f6-d396f9463a4c.jpeg)
+
 **Step 2:**
 
 Go to project root and execute the following command in console to get the required dependencies: 
