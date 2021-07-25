@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:park_place/screens/slots.dart';
+import 'package:park_place/screens/tezosPay.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -431,6 +432,32 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           color: Colors.redAccent,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        child: RaisedButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (context) => TezosPayPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Pay with Tezos Wallet',
+                            style: TextStyle(fontSize: 20, color: Colors.black),
+                          ),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Colors.purple[200],
                         ),
                       ),
                     ),

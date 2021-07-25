@@ -60,7 +60,7 @@ class _SlotsState extends State<Slots> {
     await users
         // .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         // .collection('parkingareas')
-        .doc('mHtxOnW5tZcUq4679Het')
+        .doc('ARCPkVlWr5FtyfLhgKvJ')
         .get()
         .then((value) async {
       arr = List.from(value['timeSlots']);
@@ -149,7 +149,7 @@ class _SlotsState extends State<Slots> {
       // arr[availableSlotsList[selectedslotstrue[i]] = "selected" as int;
       arr[ind] = "selected";
     }
-    await users.doc('mHtxOnW5tZcUq4679Het').update({'timeSlots': arr});
+    await users.doc('ARCPkVlWr5FtyfLhgKvJ').update({'timeSlots': arr});
     await FirebaseFirestore.instance
         .collection('giveplaceusers')
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
@@ -162,7 +162,7 @@ class _SlotsState extends State<Slots> {
       'ismoneytransfered': true,
       'vehicleNumber': vehicleNumber,
       'timing': selectedslotstrue,
-      'placeid': 'mHtxOnW5tZcUq4679Het'
+      'placeid': 'ARCPkVlWr5FtyfLhgKvJ'
     });
 
     showDialog(
@@ -191,7 +191,7 @@ class _SlotsState extends State<Slots> {
       arr[ind] = "true";
     }
     print("gjhgjghgjhgjhghj $arr");
-    await users.doc('mHtxOnW5tZcUq4679Het').update({'timeSlots': arr});
+    await users.doc('ARCPkVlWr5FtyfLhgKvJ').update({'timeSlots': arr});
     await FirebaseFirestore.instance
         .collection('giveplaceusers')
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
