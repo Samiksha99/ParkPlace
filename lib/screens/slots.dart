@@ -2,8 +2,10 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'mainPage.dart';
+String todatDate= DateFormat('yyyy-MM-dd').format(DateTime.now());
 
 List<int> availableSlotsList = [];
 
@@ -58,7 +60,7 @@ class _SlotsState extends State<Slots> {
     await users
         // .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
         // .collection('parkingareas')
-        .doc('yikvwlSZa0PDgp32KKYc')
+        .doc('mHtxOnW5tZcUq4679Het')
         .get()
         .then((value) async {
       arr = List.from(value['timeSlots']);
@@ -75,7 +77,7 @@ class _SlotsState extends State<Slots> {
           .collection('giveplaceusers')
           .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
           .collection('bookings')
-          .doc('kmQxTo74JbFM8838f8GH')
+          .doc('Bd4C1XRdct8m8BM8vCkY')
           .get()
           .then((value) {
         if (value['isdispatech'] == false) {
@@ -147,7 +149,7 @@ class _SlotsState extends State<Slots> {
       // arr[availableSlotsList[selectedslotstrue[i]] = "selected" as int;
       arr[ind] = "selected";
     }
-    await users.doc('yikvwlSZa0PDgp32KKYc').update({'timeSlots': arr});
+    await users.doc('mHtxOnW5tZcUq4679Het').update({'timeSlots': arr});
     await FirebaseFirestore.instance
         .collection('giveplaceusers')
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
@@ -160,7 +162,7 @@ class _SlotsState extends State<Slots> {
       'ismoneytransfered': true,
       'vehicleNumber': vehicleNumber,
       'timing': selectedslotstrue,
-      'placeid': 'yikvwlSZa0PDgp32KKYc'
+      'placeid': 'mHtxOnW5tZcUq4679Het'
     });
 
     showDialog(
@@ -189,7 +191,7 @@ class _SlotsState extends State<Slots> {
       arr[ind] = "true";
     }
     print("gjhgjghgjhgjhghj $arr");
-    await users.doc('yikvwlSZa0PDgp32KKYc').update({'timeSlots': arr});
+    await users.doc('mHtxOnW5tZcUq4679Het').update({'timeSlots': arr});
     await FirebaseFirestore.instance
         .collection('giveplaceusers')
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
@@ -237,12 +239,14 @@ class _SlotsState extends State<Slots> {
         home: Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.blue[900],
-              title: Text(
-                'Slots',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 20,
+              title: Center(
+                child: Text(
+                  'Slots',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ),
               automaticallyImplyLeading: true,
@@ -266,7 +270,7 @@ class _SlotsState extends State<Slots> {
                 padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                 child: Center(
                     child: Text(
-                  DateTime.now().toString(),
+                  todatDate,
                   style: TextStyle(fontSize: 25),
                 )),
               ),
