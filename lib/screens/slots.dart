@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'mainPage.dart';
 
@@ -53,12 +54,14 @@ List allSlots = [
 class _SlotsState extends State<Slots> {
   String ownername = '';
   String vehicleNumber = '';
+  String todatDate= DateFormat('yyyy-MM-dd').format(DateTime.now());
+
   void getslots() async {
     availableSlotsList = [];
-    await users
+    await FirebaseFirestore.instance
         // .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-        // .collection('parkingareas')
-        .doc('yikvwlSZa0PDgp32KKYc')
+        .collection('parkingPlaces')
+        .doc('cjVkoioeWRR5shGhX8Ff')
         .get()
         .then((value) async {
       arr = List.from(value['timeSlots']);
@@ -147,7 +150,7 @@ class _SlotsState extends State<Slots> {
       // arr[availableSlotsList[selectedslotstrue[i]] = "selected" as int;
       arr[ind] = "selected";
     }
-    await users.doc('yikvwlSZa0PDgp32KKYc').update({'timeSlots': arr});
+    await users.doc('cjVkoioeWRR5shGhX8Ff').update({'timeSlots': arr});
     await FirebaseFirestore.instance
         .collection('giveplaceusers')
         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
@@ -266,7 +269,7 @@ class _SlotsState extends State<Slots> {
                 padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                 child: Center(
                     child: Text(
-                  DateTime.now().toString(),
+                      todatDate,
                   style: TextStyle(fontSize: 25),
                 )),
               ),

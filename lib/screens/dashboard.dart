@@ -57,6 +57,7 @@ class _DashbordState extends State<Dashbord> {
     print(placemark);
   }
   void addParkingPlaces(String id) async{
+    List<String> arr = new List<String>.generate(24, (index) => "false");
     await FirebaseFirestore.instance
     .collection('parkingPlaces')
     .doc(id)
@@ -66,6 +67,7 @@ class _DashbordState extends State<Dashbord> {
       'mobileNumber': mobilenumber,
       'ownerNmae': ownername,
       'address': address,
+      'timeSlots': arr,
     }).then((val) {
         print("Document successfully written!");
         addGeopoint(id);
@@ -123,11 +125,13 @@ class _DashbordState extends State<Dashbord> {
       backgroundColor: Colors.blue[100],
         appBar: AppBar(
           backgroundColor: Colors.blue[900],
-          title: Text('Dashboard',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
+          title: Center(
+            child: Text('Rent Parking Areas',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
             ),
           ),
           automaticallyImplyLeading: false,
