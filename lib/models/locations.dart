@@ -1,9 +1,12 @@
+import 'dart:html';
+
 class Locations {
  String address = "";
     String ownerNmae = "";
     int max2vehicles = 0;
     int max4vehicles = 0;
     int mobileNumber = 0;
+    List<String> timeSlots =[];
 
   Locations({
     required this.address,
@@ -11,6 +14,7 @@ class Locations {
     required this.max2vehicles,
     required this.max4vehicles,
     required this.mobileNumber,
+    required this.timeSlots,
   });
 
   Map toMap(Locations locations) {
@@ -20,6 +24,7 @@ class Locations {
     data['max2vehicles'] = locations.max2vehicles;
     data['max4vehicles'] = locations.max4vehicles;
     data['mobileNumber'] = locations.mobileNumber;
+    data['timeSlots'] = locations.timeSlots;
     return data;
   }
 
@@ -30,5 +35,6 @@ class Locations {
     this.max2vehicles = mapData['max2vehicles'];
     this.max4vehicles = mapData['max4vehicles'];
     this.mobileNumber = mapData['mobileNumber'];
+    this.timeSlots = mapData['timeSlots'];
   }
 }

@@ -3,13 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:park_place/models/locations.dart';
+import 'package:park_place/services/locations.dart';
 
 import 'mainPage.dart';
 
 List<int> availableSlotsList = [];
 
 class Slots extends StatefulWidget {
-  const Slots({Key? key}) : super(key: key);
+
+  final Locations currlocation;
+
+  const Slots({ Key? key, required this.currlocation }) : super(key: key);
 
   @override
   _SlotsState createState() => _SlotsState();
@@ -57,14 +62,23 @@ class _SlotsState extends State<Slots> {
   String todatDate= DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   void getslots() async {
+
     availableSlotsList = [];
-    await FirebaseFirestore.instance
-        // .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-        .collection('parkingPlaces')
-        .doc('cjVkoioeWRR5shGhX8Ff')
-        .get()
-        .then((value) async {
-      arr = List.from(value['timeSlots']);
+
+    // Locationservices()
+    //     .fetchLocationservices()
+    //     .then((value) => value.forEach((element) {
+    //           setState(() {
+    //             availableSlotsList.add(element);
+    //           });
+    //         }));
+    // await FirebaseFirestore.instance
+    //     // .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+    //     .collection('parkingPlaces')
+    //     .doc('cjVkoioeWRR5shGhX8Ff')
+    //     .get()
+    //     .then((value) async {
+      arr = List.from(widget.currlocation.timeSlots);
       for (var i = 0; i < arr.length; i++) {
         if (arr[i] == "true") {
           setState(() {
@@ -89,7 +103,7 @@ class _SlotsState extends State<Slots> {
         }
         print(vehicleNumber);
       });
-    });
+    // });
   }
 
   Future<void> getOwnerName() {
