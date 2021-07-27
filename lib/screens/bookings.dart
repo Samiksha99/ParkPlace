@@ -6,16 +6,14 @@ import 'package:park_place/models/parkingareas.dart';
 import 'package:intl/intl.dart';
 
 class Bookings extends StatefulWidget {
-
   final Parkingareas parkingArea;
   const Bookings({Key? key, required this.parkingArea}) : super(key: key);
-
 
   @override
   _BookingsState createState() => _BookingsState();
 }
 
-String id='';
+String id = '';
 
 class _BookingsState extends State<Bookings> {
   CollectionReference users =
@@ -76,59 +74,65 @@ class _BookingsState extends State<Bookings> {
         .collection('parkingareas')
         .doc(id)
         .update({'timeSlots': arr});
+    await FirebaseFirestore.instance
+        .collection('parkingPlaces')
+        .doc(id)
+        .update({'timeSlots': arr});
 
-        showDialog( 
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text("Updated"),
-            content: Text("You have updated TimeSlots"),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                  Navigator.pop(context);
-                },
-                child: Text("okay"),
-              ),
-            ],
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Updated"),
+        content: Text("You have updated TimeSlots"),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pop(context);
+            },
+            child: Text("okay"),
           ),
-        );
+        ],
+      ),
+    );
   }
-  String todatDate= DateFormat('yyyy-MM-dd').format(DateTime.now());
-  void getparkingAreaId() async{
+
+  String todatDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  void getparkingAreaId() async {
     await users
-      .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-      .collection('parkingareas')
-      .get().then((value){
-        value.docs.forEach((element) {
-          if(element['address'] == widget.parkingArea.address){
-            id = element.id;
-            print("First-id $id");
-          }
-        });
+        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .collection('parkingareas')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        if (element['address'] == widget.parkingArea.address) {
+          id = element.id;
+          print("First-id $id");
+        }
       });
+    });
   }
-  
+
   Future<void> getslots() async {
     print("first $arr");
     print("id $id");
     await users
-      .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-      .collection('parkingareas')
-      .doc(id)
-      .get()
-      .then((value) {
-        setState(() {
-          arr = List.from(value['timeSlots']);
-        });
-        twowheels = value['max2vehicles'];
-        fourwheels = value['max4vehicles'];
-        mobilenumber = value['mobileNumber'];
-        address = value['address'];
-        pincode = value['pincode'];
-        state = value['state'];
-        country = value['country'];
+        .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+        .collection('parkingareas')
+        .doc(id)
+        .get()
+        .then((value) {
+      setState(() {
+        arr = List.from(value['timeSlots']);
       });
+      twowheels = value['max2vehicles'];
+      fourwheels = value['max4vehicles'];
+      mobilenumber = value['mobileNumber'];
+      address = value['address'];
+      pincode = value['pincode'];
+      state = value['state'];
+      country = value['country'];
+    });
     print("last $arr");
   }
 
@@ -146,7 +150,7 @@ class _BookingsState extends State<Bookings> {
       'state': state,
       'country': country
     });
-    showDialog( 
+    showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text("Updated"),
@@ -179,10 +183,9 @@ class _BookingsState extends State<Bookings> {
   }
 
   colorselect(val) {
-    if (arr[val] == "true" ) {
+    if (arr[val] == "true") {
       return "true";
-    }
-    else if(arr[val] == "selected"){
+    } else if (arr[val] == "selected") {
       return "selected";
     }
     return "false";
@@ -371,7 +374,7 @@ class _BookingsState extends State<Bookings> {
                                   onChanged: (text) {
                                     country = text;
                                   },
-                                  initialValue:country,
+                                  initialValue: country,
                                   validator: (value) {
                                     if (value == null) {
                                       return 'Please enter a country name';
@@ -416,18 +419,17 @@ class _BookingsState extends State<Bookings> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 30),
-                              child: (TextFormField(
-                                key: ValueKey('email'),
-                                validator: (value) {
-                                  if (value == null || !value.contains('@')) {
-                                    return 'Please enter a valid email address';
-                                  }
-                                  return null;
-                                },
-                              ))
-                            ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 30),
+                                child: (TextFormField(
+                                  key: ValueKey('email'),
+                                  validator: (value) {
+                                    if (value == null || !value.contains('@')) {
+                                      return 'Please enter a valid email address';
+                                    }
+                                    return null;
+                                  },
+                                ))),
                             Padding(
                                 padding:
                                     EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 40.0),
@@ -453,7 +455,14 @@ class _BookingsState extends State<Bookings> {
         body: Column(children: <Widget>[
           Padding(
             padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
-            child: Center(child: Text(todatDate, style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),)),
+            child: Center(
+                child: Text(
+              todatDate,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            )),
           ),
           Expanded(
             child: GridView.builder(
@@ -475,7 +484,9 @@ class _BookingsState extends State<Bookings> {
                     ),
                     backgroundColor: colorselect(index) == "true"
                         ? Colors.blue[800]
-                        : colorselect(index) == "selected" ? Colors.green : Colors.blue[50],
+                        : colorselect(index) == "selected"
+                            ? Colors.green
+                            : Colors.blue[50],
                     elevation: 6.0,
                     shadowColor: Colors.grey[60],
                     padding: EdgeInsets.all(8.0),

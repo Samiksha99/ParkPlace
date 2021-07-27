@@ -419,7 +419,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                             Navigator.push(
                               context,
                               new MaterialPageRoute(
-                                builder: (context) => Slots(),
+                                builder: (context) => Slots(currentLocation: widget.currLocation,),
                               ),
                             );
                           },

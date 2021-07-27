@@ -6,6 +6,7 @@ class Parkingareas {
     int max4vehicles = 0;
     int mobileNumber = 0;
     int pincode = 0;
+    
 
   Parkingareas({
     required this.address,

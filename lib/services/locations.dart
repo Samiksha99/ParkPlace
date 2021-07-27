@@ -8,6 +8,10 @@ class Locationservices {
     int max4vehicles = 0,
     int mobileNumber = 0,
     String ownerNmae = "",
+    List<dynamic>? timeSlots ,
+    String? id ="",
+    String? ownerid = "",
+
   }) async {
     Map<String, dynamic> data = {
       'max2vehicles': max2vehicles,
@@ -15,6 +19,9 @@ class Locationservices {
       'mobileNumber': mobileNumber,
       'address': address,
       'ownerNmae': ownerNmae,
+      'timeSlots':timeSlots,
+      'id':id,
+      'ownerid':ownerid
     };
 
     await FirebaseFirestore.instance

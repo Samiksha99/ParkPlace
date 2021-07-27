@@ -29,6 +29,7 @@ class _DashbordState extends State<Dashbord> {
   int? twowheels;
   int? fourwheels;
   String ownername='';
+  String ownerid ="";
   final TextEditingController _address = TextEditingController();
 
 
@@ -38,6 +39,7 @@ class _DashbordState extends State<Dashbord> {
     .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
     .get().then((value) {
       ownername = value['fullName'];
+      ownerid = value.id;
     }) ;
   }
   CollectionReference users = FirebaseFirestore.instance
@@ -57,6 +59,7 @@ class _DashbordState extends State<Dashbord> {
     print(placemark);
   }
   void addParkingPlaces(String id) async{
+    List<String> arr = new List<String>.generate(24, (index) => "false");
     await FirebaseFirestore.instance
     .collection('parkingPlaces')
     .doc(id)
@@ -66,6 +69,9 @@ class _DashbordState extends State<Dashbord> {
       'mobileNumber': mobilenumber,
       'ownerNmae': ownername,
       'address': address,
+      'ownerid':ownerid,
+      'timeSlots':arr,
+      'id':id
     }).then((val) {
         print("Document successfully written!");
         addGeopoint(id);
@@ -100,6 +106,7 @@ class _DashbordState extends State<Dashbord> {
       'state': state,
       'country': country,
       'timeSlots': arr,
+      'ownerid':ownerid
     }).then((value) {
       addParkingPlaces(value.id);
       Navigator.pop(context);
@@ -424,4 +431,3 @@ class _DashbordState extends State<Dashbord> {
         ));
   }
 }
-  
