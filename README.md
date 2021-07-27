@@ -44,11 +44,4 @@ After it run this command:
   - flutter_google_places
   
   
-  ![Add Place](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img1.jpeg)
-  
-  ![Google Maps Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img2.jpeg)
-  
-  ![Login Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img3.jpeg)
-  
-  ![Booking Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/img4.jpeg)
-  
+  ![Add Place](https://github.com/Samiksha99/ParkPlace/blob/main/Images/login.jpeg)|![Google Maps Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/bookingSlots.jpeg)|![Login Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/registerPlace.jpeg)|![Booking Page](https://github.com/Samiksha99/ParkPlace/blob/main/Images/showRoute.jpeg)|![Parking Places near you](https://github.com/Samiksha99/ParkPlace/blob/main/Images/https://github.com/Samiksha99/ParkPlace/blob/main/Images/bookingSlots.jpg)|![Parking Place info](https://github.com/Samiksha99/ParkPlace/blob/main/Images/https://github.com/Samiksha99/ParkPlace/blob/main/Images/parkingPlaceInfo.jpeg)|![Book Parking Places](https://github.com/Samiksha99/ParkPlace/blob/main/Images/https://github.com/Samiksha99/ParkPlace/blob/main/Images/bookParkingPlaces.jpg)|![Pay Screen](https://github.com/Samiksha99/ParkPlace/blob/main/Images/https://github.com/Samiksha99/ParkPlace/blob/main/Images/payScreen.jpg)
