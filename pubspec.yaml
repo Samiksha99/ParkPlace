@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,13 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  geolocator: ^7.3.0
+  geolocator: ^9.0.2
   url_launcher: ^6.0.9
-  geocoder: ^0.2.1
   geocoding: ^2.0.0
   progress_state_button: ^1.0.3
   google_maps_flutter: ^2.0.6
@@ -39,17 +37,17 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   carousel_slider: ^4.0.0
   like_button: ^2.0.2
-  firebase_auth: ^3.0.0
-  cloud_firestore: ^2.4.0
-  firebase_auth_web: ^3.0.0
-  firebase_core: ^1.4.0
+  firebase_auth: ^4.6.1
+  cloud_firestore: ^4.7.1
+  firebase_auth_web: ^5.5.1
+  firebase_core: ^2.13.0
   flutter_spinkit: ^5.0.0
   shared_preferences: ^2.0.6
   image_picker: ^0.8.2
   flutter_google_places: ^0.3.0
   geo_firestore_flutter: ^0.1.2
   razorpay_flutter: ^1.2.7
-  intl: ^0.17.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -60,7 +58,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

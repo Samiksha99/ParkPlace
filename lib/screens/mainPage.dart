@@ -20,13 +20,14 @@ class MainPage extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Text("ParkPlace", style: TextStyle(color: Colors.white, fontSize: 50),),
+                child: Text(
+                  "ParkPlace",
+                  style: TextStyle(color: Colors.white, fontSize: 50),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
+                child: ElevatedButton.icon(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -34,7 +35,12 @@ class MainPage extends StatelessWidget {
                           builder: (context) => LoginScreen(isowner: true)),
                     );
                   },
-                  color: Colors.blue[900],
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    backgroundColor: Colors.blue[900],
+                  ),
                   icon: Icon(
                     Icons.directions,
                     color: Colors.white,
@@ -51,9 +57,7 @@ class MainPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
+                child: ElevatedButton.icon(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -61,7 +65,12 @@ class MainPage extends StatelessWidget {
                           builder: (context) => LoginScreen(isowner: false)),
                     );
                   },
-                  color: Colors.pink,
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    backgroundColor: Colors.pink,
+                  ),
                   icon: Icon(
                     Icons.directions,
                     color: Colors.white,

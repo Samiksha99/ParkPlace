@@ -326,34 +326,38 @@ class MapScreenState extends State<ProfilePageOwner>
             child: Padding(
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
-                  child: RaisedButton(
-                child: Text("Save"),
-                textColor: Colors.white,
-                color: Colors.green,
-                onPressed: () {
-                  setState(() {
-                    if (newAadharNumber != null &&
-                        newFullName != null &&
-                        newMobileNumber != null) {
-                      // var firebaseUser = FirebaseAuth.instance.currentUser;
-                      FirebaseFirestore.instance
-                          .collection("giveplaceusers")
-                          .doc(documentId)
-                          .update({
-                        "aadharNumber": newAadharNumber,
-                        "fullName": newFullName,
-                        "mobileNumber": newMobileNumber
-                      }).then((_) {
-                        print("success!");
-                      });
-                    }
-                    _status = true;
-                    FocusScope.of(context).requestFocus(FocusNode());
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-              )),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (newAadharNumber != null &&
+                          newFullName != null &&
+                          newMobileNumber != null) {
+                        // var firebaseUser = FirebaseAuth.instance.currentUser;
+                        FirebaseFirestore.instance
+                            .collection("giveplaceusers")
+                            .doc(documentId)
+                            .update({
+                          "aadharNumber": newAadharNumber,
+                          "fullName": newFullName,
+                          "mobileNumber": newMobileNumber
+                        }).then((_) {
+                          print("success!");
+                        });
+                      }
+                      _status = true;
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    });
+                  },
+                  child: Text("Save"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                ),
+              ),
             ),
             flex: 2,
           ),
@@ -361,19 +365,23 @@ class MapScreenState extends State<ProfilePageOwner>
             child: Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
-                  child: RaisedButton(
-                child: Text("Cancel"),
-                textColor: Colors.white,
-                color: Colors.red,
-                onPressed: () {
-                  setState(() {
-                    _status = true;
-                    FocusScope.of(context).requestFocus(FocusNode());
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-              )),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _status = true;
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    });
+                  },
+                  child: Text("Cancel"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                ),
+              ),
             ),
             flex: 2,
           ),

@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:park_place/models/parkingareas.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:park_place/models/parkingareas.dart';
 
 class Bookings extends StatefulWidget {
   final Parkingareas parkingArea;
@@ -85,7 +84,7 @@ class _BookingsState extends State<Bookings> {
         title: Text("Updated"),
         content: Text("You have updated TimeSlots"),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pop(context);
@@ -156,7 +155,7 @@ class _BookingsState extends State<Bookings> {
         title: Text("Updated"),
         content: Text("You have updated TimeSlots"),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pop(context);

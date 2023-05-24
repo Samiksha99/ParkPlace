@@ -1,14 +1,12 @@
-import 'dart:ui';
-import 'package:park_place/screens/slots.dart';
-import 'package:park_place/screens/tezosPay.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:park_place/Location/google_maps.dart';
 import 'package:park_place/models/locations.dart';
 import 'package:park_place/screens/mainPage.dart';
 import 'package:park_place/screens/slots.dart';
+import 'package:park_place/screens/tezosPay.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 final themeMode = ValueNotifier(2);
 
@@ -139,7 +137,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-        backgroundColor: Colors.purple[900],
+          backgroundColor: Colors.purple[900],
           title: Center(
             child: Text('Park Place'),
           ),
@@ -316,15 +314,19 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                                   color: Colors.amber),
                             ),
                             Container(
-                              child: RaisedButton.icon(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
+                              child: ElevatedButton.icon(
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => MapView(
-                                          widget.currLocation.address)));
+                                    builder: (context) =>
+                                        MapView(widget.currLocation.address),
+                                  ));
                                 },
-                                color: Colors.green,
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  backgroundColor: Colors.green,
+                                ),
                                 icon: Icon(
                                   Icons.directions,
                                   color: Colors.white,
@@ -391,73 +393,81 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
-                        child: RaisedButton(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                        child: ElevatedButton(
                           onPressed: () {
                             getPayment("150");
                           },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            elevation: 5,
+                            primary: Colors.redAccent,
+                          ),
                           child: Text(
                             'Pay And Park',
                             style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          color: Colors.redAccent,
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
-                        child: RaisedButton(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                        child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                               context,
-                              new MaterialPageRoute(
-                                builder: (context) => Slots(currentLocation: widget.currLocation,),
+                              MaterialPageRoute(
+                                builder: (context) => Slots(
+                                  currentLocation: widget.currLocation,
+                                ),
                               ),
                             );
                           },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            elevation: 5,
+                            backgroundColor: Colors.redAccent,
+                          ),
                           child: Text(
                             'Slots',
                             style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          color: Colors.redAccent,
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
-                        child: RaisedButton(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                        child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                               context,
-                              new MaterialPageRoute(
+                              MaterialPageRoute(
                                 builder: (context) => TezosPayPage(),
                               ),
                             );
                           },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            elevation: 5,
+                            backgroundColor: Colors.purple[200],
+                          ),
                           child: Text(
                             'Pay with Tezos Wallet',
                             style: TextStyle(fontSize: 20, color: Colors.black),
                           ),
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          color: Colors.purple[200],
                         ),
                       ),
                     ),
