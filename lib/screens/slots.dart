@@ -182,7 +182,7 @@ class _SlotsState extends State<Slots> {
         title: Text("Updated"),
         content: Text("You have selected TimeSlots"),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pop(context);
@@ -218,7 +218,7 @@ class _SlotsState extends State<Slots> {
         content:
             Text("Yor are picking your vehicle.Hope You like our service."),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pop(context);
